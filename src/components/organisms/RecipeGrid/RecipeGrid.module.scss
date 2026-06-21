@@ -1,0 +1,62 @@
+@use "../../../designSystem/variables";
+@use "../../../designSystem/utils";
+@use "../../../designSystem/mediaQueries" as mq;
+
+.section {
+	padding: 4rem 0;
+	background-color: var(--color-bg);
+}
+
+.headerRow {
+	margin-bottom: 2.5rem;
+}
+
+.buttonCol {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+
+	@include mq.media("md") {
+		justify-content: flex-end;
+	}
+}
+
+.recipeCard {
+	height: 100%;
+}
+
+.imageWrapper {
+	width: 100%;
+	aspect-ratio: 16 / 10;
+	margin-bottom: 1rem;
+	overflow: hidden;
+	border-radius: 0.75rem;
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: crop;
+		transition: transform 0.3s ease;
+	}
+
+	&:hover img {
+		transform: scale(1.05);
+	}
+}
+
+.description {
+	color: var(--color-text-secondary);
+	@include utils.toRem(font-size, variables.$font-md);
+	line-height: 1.5;
+}
+
+.favoriteIcon {
+	cursor: pointer;
+	color: var(--color-accent);
+	font-size: 1.25rem;
+	transition: transform 0.2s ease;
+
+	&:hover {
+		transform: scale(1.1);
+	}
+}

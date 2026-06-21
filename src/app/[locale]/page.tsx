@@ -1,4 +1,5 @@
 import { Contact } from "@/components/organisms/Contact";
+import { RecipeGrid } from "@/components/organisms/RecipeGrid";
 import { Col, Container, Row } from "@/components/atoms/Grid";
 import { getTranslations } from "next-intl/server";
 
@@ -17,6 +18,8 @@ export default async function Page() {
 					</Row>
 				</Container>
 			</section>
+
+			<RecipeGrid />
 
 			<div id="contact">
 				<Contact />
