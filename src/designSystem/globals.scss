@@ -116,6 +116,9 @@ body {
 }
 
 body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 	overflow-x: hidden;
 	// Prevents layout shift when a scrollbar appears/disappears
 	margin-right: calc(-1 * (100vw - 100%));
@@ -127,7 +130,7 @@ body {
 
 main {
 	width: 100%;
-	height: 100%;
+	flex: 1;
 }
 
 a {
