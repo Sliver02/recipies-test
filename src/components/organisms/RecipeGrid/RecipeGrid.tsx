@@ -5,6 +5,7 @@ import { Card } from "@/components/molecules/Card";
 import { Button } from "@/components/atoms/Button";
 import { HiOutlineChevronRight, HiOutlineHeart } from "react-icons/hi";
 import styles from "./RecipeGrid.module.scss";
+import Image from "next/image";
 
 const RECIPES = [
 	{
@@ -38,7 +39,7 @@ export const RecipeGrid = () => {
 					<Col xs={12} md={8}>
 						<h2 className="text--h-md">Trending Recipes</h2>
 						<p className="text--p-md">
-							Explore our community's favorite healthy picks for this week.
+							Explore our community`s favorite healthy picks for this week.
 						</p>
 					</Col>
 					<Col xs={12} md={4} className={styles.buttonCol}>
@@ -62,7 +63,12 @@ export const RecipeGrid = () => {
 								className={styles.recipeCard}
 							>
 								<div className={styles.imageWrapper}>
-									<img src={recipe.image} alt={recipe.title} />
+									<Image
+										src={recipe.image}
+										alt={recipe.title}
+										layout="fill"
+										objectFit="cover"
+									/>
 								</div>
 								<p className={styles.description}>{recipe.description}</p>
 							</Card>
