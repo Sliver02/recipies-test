@@ -66,8 +66,9 @@ export const RecipeGrid = () => {
 									<Image
 										src={recipe.image}
 										alt={recipe.title}
-										layout="fill"
-										objectFit="cover"
+										height={200}
+										width={300}
+										style={{ objectFit: "cover" }}
 									/>
 								</div>
 								<p className={styles.description}>{recipe.description}</p>
