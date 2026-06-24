@@ -41,7 +41,7 @@
 	},
 	"wizard": {
 		"stepOf": "Passo {current} di {total}",
-		"step1Title": "Da dove vieni?",
+		"step1Title": "Quale regione vuoi esplorare?",
 		"step1Label": "Cucina / Area",
 		"step1Placeholder": "es. Italiana, Messicana…",
 		"step2Title": "Di cosa hai voglia?",

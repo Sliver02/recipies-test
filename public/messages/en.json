@@ -42,7 +42,7 @@
 	},
 	"wizard": {
 		"stepOf": "Step {current} of {total}",
-		"step1Title": "Where are you from?",
+		"step1Title": "Which region do you feel like exploring?",
 		"step1Label": "Cuisine / Area",
 		"step1Placeholder": "e.g. Italian, Mexican…",
 		"step2Title": "What are you in the mood for?",
