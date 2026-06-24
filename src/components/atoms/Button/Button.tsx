@@ -31,6 +31,7 @@ export const Button = ({
 			{ [styles.fullWidth]: fullWidth },
 			className
 		)}
+		suppressHydrationWarning
 		{...props}
 	>
 		{icon && iconPosition === "start" && <span className={styles.icon}>{icon}</span>}
