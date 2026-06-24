@@ -1,6 +1,7 @@
 import "@/designSystem/globals.scss";
 import { Footer } from "@/components/organisms/Footer";
 import { Header } from "@/components/organisms/Header";
+import { RecipesProvider } from "@/context/RecipesContext";
 import { locales } from "@/i18n/routing";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
@@ -34,19 +35,21 @@ export default async function LocaleLayout({
 		<html lang={locale} data-theme="light">
 			<body>
 				<NextIntlClientProvider messages={messages}>
-					<Header
-						navItems={[
-							{ href: "/", label: t("home") },
-							{ href: "/#contact", label: t("contact") },
-						]}
-					/>
-					<main style={{ paddingTop: "4.5rem" }}>{children}</main>
-					<Footer
-						navItems={[
-							{ href: "/", label: t("home") },
-							{ href: "/#contact", label: t("contact") },
-						]}
-					/>
+					<RecipesProvider>
+						<Header
+							navItems={[
+								{ href: "/", label: t("home") },
+								{ href: "/my-recipes", label: t("myRecipes") },
+							]}
+						/>
+						<main style={{ paddingTop: "4.5rem" }}>{children}</main>
+						<Footer
+							navItems={[
+								{ href: "/", label: t("home") },
+								{ href: "/my-recipes", label: t("myRecipes") },
+							]}
+						/>
+					</RecipesProvider>
 				</NextIntlClientProvider>
 			</body>
 		</html>
