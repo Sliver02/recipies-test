@@ -1,0 +1,78 @@
+@use "../../../designSystem/variables";
+@use "../../../designSystem/utils";
+@use "../../../designSystem/mediaQueries" as mq;
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	height: 100%;
+}
+
+.imageWrapper {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	border-radius: 0.75rem;
+	overflow: hidden;
+	background-color: var(--color-bg-sunken);
+}
+
+.image {
+	object-fit: cover;
+}
+
+.meta {
+	display: flex;
+	gap: 0.5rem;
+	flex-wrap: wrap;
+}
+
+.tag {
+	@include utils.toRem(font-size, variables.$font-sm);
+	padding: 0.2rem 0.6rem;
+	border-radius: 999px;
+	background-color: var(--color-bg-sunken);
+	color: var(--color-text-secondary);
+	font-weight: 500;
+}
+
+.badge {
+	@include utils.toRem(font-size, variables.$font-sm);
+	padding: 0.2rem 0.6rem;
+	border-radius: 999px;
+	font-weight: 600;
+
+	&.liked {
+		background-color: var(--color-success);
+		color: var(--color-text-inverse);
+	}
+
+	&.disliked {
+		background-color: var(--color-error);
+		color: var(--color-text-inverse);
+	}
+}
+
+.sourceLink {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+	color: var(--color-primary);
+	@include utils.toRem(font-size, variables.$font-sm);
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+.titleLink {
+	color: inherit;
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+		color: var(--color-primary);
+	}
+}
