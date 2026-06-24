@@ -1,7 +1,8 @@
 {
 	"header": {
 		"home": "Home",
-		"contact": "Contact"
+		"contact": "Contact",
+		"myRecipes": "My Recipes"
 	},
 	"footer": {
 		"copyright": "All rights reserved"
@@ -38,5 +39,47 @@
 		"title": "Something went wrong",
 		"description": "An unexpected error occurred.",
 		"retry": "Try again"
+	},
+	"wizard": {
+		"stepOf": "Step {current} of {total}",
+		"step1Title": "Where are you from?",
+		"step1Label": "Cuisine / Area",
+		"step1Placeholder": "e.g. Italian, Mexican…",
+		"step2Title": "What are you in the mood for?",
+		"step2Label": "Category",
+		"step2Placeholder": "e.g. Seafood, Vegetarian…",
+		"next": "Next",
+		"back": "Back",
+		"submit": "Find a recipe",
+		"loading": "Loading options…"
+	},
+	"recommendation": {
+		"question": "Did it match your preference?",
+		"yes": "Yes",
+		"no": "No",
+		"newIdea": "New idea",
+		"noResults": "No recipes found for these criteria. Try different selections.",
+		"loading": "Finding a recipe…",
+		"changeSearch": "Change search"
+	},
+	"recipeDetail": {
+		"ingredients": "Ingredients",
+		"instructions": "Instructions",
+		"back": "Back",
+		"viewSource": "View original recipe",
+		"watchVideo": "Watch on YouTube",
+		"notFound": "Recipe not found."
+	},
+	"myRecipes": {
+		"title": "My Recipes",
+		"empty": "No recipes here yet.",
+		"filterAll": "All",
+		"filterLiked": "Liked",
+		"filterDisliked": "Disliked",
+		"searchPlaceholder": "Search your recipes…",
+		"liked": "Liked",
+		"disliked": "Disliked",
+		"toggleStatus": "Toggle status",
+		"remove": "Remove"
 	}
 }

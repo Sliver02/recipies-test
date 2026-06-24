@@ -1,0 +1,28 @@
+@use "../../../designSystem/variables";
+@use "../../../designSystem/utils";
+@use "../../../designSystem/mediaQueries" as mq;
+
+.wizard {
+	padding: 3rem 0;
+}
+
+.stepIndicator {
+	@include utils.toRem(font-size, variables.$font-sm);
+	color: var(--color-text-secondary);
+	margin-bottom: 0.5rem;
+	font-weight: 500;
+}
+
+.title {
+	margin-bottom: 2rem;
+}
+
+.field {
+	margin-bottom: 1.5rem;
+}
+
+.actions {
+	display: flex;
+	gap: 1rem;
+	margin-top: 2rem;
+}

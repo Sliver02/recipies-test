@@ -1,6 +1,7 @@
 {
 	"header": {
 		"home": "Home",
+		"myRecipes": "Le mie ricette",
 		"contact": "Contatti"
 	},
 	"footer": {
@@ -37,5 +38,47 @@
 		"title": "Qualcosa è andato storto",
 		"description": "Si è verificato un errore imprevisto.",
 		"retry": "Riprova"
+	},
+	"wizard": {
+		"stepOf": "Passo {current} di {total}",
+		"step1Title": "Da dove vieni?",
+		"step1Label": "Cucina / Area",
+		"step1Placeholder": "es. Italiana, Messicana…",
+		"step2Title": "Di cosa hai voglia?",
+		"step2Label": "Categoria",
+		"step2Placeholder": "es. Pesce, Vegetariano…",
+		"next": "Avanti",
+		"back": "Indietro",
+		"submit": "Trova una ricetta",
+		"loading": "Caricamento opzioni…"
+	},
+	"recommendation": {
+		"question": "Corrisponde alle tue preferenze?",
+		"yes": "Sì",
+		"no": "No",
+		"newIdea": "Nuova idea",
+		"noResults": "Nessuna ricetta trovata per questi criteri. Prova selezioni diverse.",
+		"loading": "Ricerca in corso…",
+		"changeSearch": "Cambia ricerca"
+	},
+	"recipeDetail": {
+		"ingredients": "Ingredienti",
+		"instructions": "Preparazione",
+		"back": "Indietro",
+		"viewSource": "Vedi ricetta originale",
+		"watchVideo": "Guarda su YouTube",
+		"notFound": "Ricetta non trovata."
+	},
+	"myRecipes": {
+		"title": "Le mie ricette",
+		"empty": "Nessuna ricetta ancora.",
+		"filterAll": "Tutte",
+		"filterLiked": "Piaciute",
+		"filterDisliked": "Non piaciute",
+		"searchPlaceholder": "Cerca le tue ricette…",
+		"liked": "Piaciuta",
+		"disliked": "Non piaciuta",
+		"toggleStatus": "Cambia stato",
+		"remove": "Rimuovi"
 	}
 }
