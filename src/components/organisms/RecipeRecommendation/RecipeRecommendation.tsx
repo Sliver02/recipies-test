@@ -1,6 +1,5 @@
 "use client";
 
-import { Alert } from "@/components/atoms/Alert";
 import { Button } from "@/components/atoms/Button";
 import { Col, Container, Row } from "@/components/atoms/Grid";
 import { RecipeCard } from "@/components/molecules/RecipeCard";
@@ -22,6 +21,7 @@ interface RecipeRecommendationProps {
 	onDislike: () => void;
 	onNext: () => void;
 	onChangeSearch: () => void;
+	onRetry: () => void;
 }
 
 export const RecipeRecommendation = ({
@@ -32,6 +32,7 @@ export const RecipeRecommendation = ({
 	onDislike,
 	onNext,
 	onChangeSearch,
+	onRetry,
 }: RecipeRecommendationProps) => {
 	const t = useTranslations("recommendation");
 
@@ -52,8 +53,10 @@ export const RecipeRecommendation = ({
 			<Container>
 				<Row>
 					<Col xs={12} md={8} lg={6}>
-						<Alert severity="info">{error ?? t("noResults")}</Alert>
+						<h2 className={`${styles.title} text--h-md`}>{t("noRecipeTitle")}</h2>
+						<p className={`${styles.subtitle} text--p-md`}>{t("noRecipeSubtitle")}</p>
 						<div className={styles.actions}>
+							<Button onClick={onRetry}>{t("retry")}</Button>
 							<Button
 								variant="outlined"
 								icon={<HiOutlineArrowLeft />}

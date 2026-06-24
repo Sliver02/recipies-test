@@ -58,6 +58,9 @@
 		"no": "No",
 		"newIdea": "Nuova idea",
 		"noResults": "Nessuna ricetta trovata per questi criteri. Prova selezioni diverse.",
+		"noRecipeTitle": "Nessuna ricetta trovata",
+		"noRecipeSubtitle": "Nessuna ricetta corrisponde alla ricerca",
+		"retry": "Riprova?",
 		"loading": "Ricerca in corso…",
 		"changeSearch": "Cambia ricerca"
 	},

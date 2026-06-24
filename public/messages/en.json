@@ -59,6 +59,9 @@
 		"no": "No",
 		"newIdea": "New idea",
 		"noResults": "No recipes found for these criteria. Try different selections.",
+		"noRecipeTitle": "Found no recipe",
+		"noRecipeSubtitle": "No recipe corresponded to the search",
+		"retry": "Retry?",
 		"loading": "Finding a recipe…",
 		"changeSearch": "Change search"
 	},

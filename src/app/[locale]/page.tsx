@@ -39,6 +39,11 @@ export default function Page() {
 		clearSearch();
 	};
 
+	const handleRetry = () => {
+		setSearch(INITIAL);
+		clearSearch();
+	};
+
 	const handleLike = () => {
 		if (!meal) return;
 		addEntry({
@@ -77,6 +82,7 @@ export default function Page() {
 				onDislike={handleDislike}
 				onNext={next}
 				onChangeSearch={handleChangeSearch}
+				onRetry={handleRetry}
 			/>
 		);
 	}
