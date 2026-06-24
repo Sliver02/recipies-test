@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
 
 	const data = await res.json();
 	const key = type === "areas" ? "strArea" : "strCategory";
-	const list: string[] = (data.meals ?? []).map((m: Record<string, string>) => m[key]);
+	const list: string[] = [...new Set<string>((data.meals ?? []).map((m: Record<string, string>) => m[key]))];
 
 	return NextResponse.json(list);
 }
