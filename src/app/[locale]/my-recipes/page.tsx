@@ -27,7 +27,7 @@ function entryToMeal(entry: HistoryEntry): MealDetail {
 
 export default function MyRecipesPage() {
 	const t = useTranslations("myRecipes");
-	const { history, toggleStatus } = useRecipes();
+	const { history, toggleStatus, removeEntry } = useRecipes();
 	const [query, setQuery] = useState("");
 	const [filter, setFilter] = useState<StatusFilter>("all");
 
@@ -112,6 +112,7 @@ export default function MyRecipesPage() {
 												meal={entryToMeal(entry)}
 												badge="liked"
 												onToggle={() => toggleStatus(entry.id)}
+												onDelete={() => removeEntry(entry.id)}
 											/>
 										</Col>
 									))}
@@ -137,6 +138,7 @@ export default function MyRecipesPage() {
 												meal={entryToMeal(entry)}
 												badge="disliked"
 												onToggle={() => toggleStatus(entry.id)}
+												onDelete={() => removeEntry(entry.id)}
 											/>
 										</Col>
 									))}

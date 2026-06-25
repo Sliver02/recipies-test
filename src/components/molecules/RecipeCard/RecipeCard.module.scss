@@ -29,10 +29,16 @@
 }
 
 
-.heartIcon {
+.iconGroup {
 	position: absolute;
 	top: 0.75rem;
 	right: 0.75rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.heartIcon {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -50,6 +56,10 @@
 
 	&.disliked {
 		color: var(--color-text-secondary);
+	}
+
+	&.deleteIcon {
+		color: var(--color-error);
 	}
 
 	&.interactive {

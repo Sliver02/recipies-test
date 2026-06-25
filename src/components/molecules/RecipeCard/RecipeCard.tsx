@@ -6,7 +6,7 @@ import { Tag } from "@/components/atoms/Tag";
 import { Link } from "@/i18n/routing";
 import classNames from "classnames";
 import Image from "next/image";
-import { LuExternalLink, LuArrowUpRight } from "react-icons/lu";
+import { LuExternalLink, LuArrowUpRight, LuTrash2 } from "react-icons/lu";
 import { HiHeart, HiOutlineHeart } from "react-icons/hi";
 import type { ReactNode } from "react";
 import type { MealDetail } from "@/types/meal";
@@ -16,11 +16,12 @@ export interface RecipeCardProps {
 	meal: MealDetail;
 	badge?: "liked" | "disliked";
 	onToggle?: () => void;
+	onDelete?: () => void;
 	actions?: ReactNode;
 	className?: string;
 }
 
-export const RecipeCard = ({ meal, badge, onToggle, actions, className }: RecipeCardProps) => (
+export const RecipeCard = ({ meal, badge, onToggle, onDelete, actions, className }: RecipeCardProps) => (
 	<Card className={className} title={undefined} rightMenu={actions}>
 		<div className={styles.wrapper}>
 			<div className={styles.imageWrapper}>
@@ -35,19 +36,35 @@ export const RecipeCard = ({ meal, badge, onToggle, actions, className }: Recipe
 				) : (
 					<Background />
 				)}
-				{badge && (
-					<button
-						className={classNames(styles.heartIcon, styles[badge], {
-							[styles.interactive]: !!onToggle,
-						})}
-						onClick={(e) => {
-							e.preventDefault();
-							onToggle?.();
-						}}
-						aria-label={badge === "liked" ? "Mark as disliked" : "Mark as liked"}
-					>
-						{badge === "liked" ? <HiHeart /> : <HiOutlineHeart />}
-					</button>
+				{(badge || onDelete) && (
+					<div className={styles.iconGroup}>
+						{badge && (
+							<button
+								className={classNames(styles.heartIcon, styles[badge], {
+									[styles.interactive]: !!onToggle,
+								})}
+								onClick={(e) => {
+									e.preventDefault();
+									onToggle?.();
+								}}
+								aria-label={badge === "liked" ? "Mark as disliked" : "Mark as liked"}
+							>
+								{badge === "liked" ? <HiHeart /> : <HiOutlineHeart />}
+							</button>
+						)}
+						{onDelete && (
+							<button
+								className={classNames(styles.heartIcon, styles.deleteIcon, styles.interactive)}
+								onClick={(e) => {
+									e.preventDefault();
+									onDelete();
+								}}
+								aria-label="Remove from my recipes"
+							>
+								<LuTrash2 />
+							</button>
+						)}
+					</div>
 				)}
 			</div>
 
