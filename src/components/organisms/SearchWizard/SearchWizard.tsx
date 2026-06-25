@@ -110,41 +110,39 @@ export const SearchWizard = ({ value, onChange, onSubmit }: SearchWizardProps) =
 	];
 
 	return (
-		<section className={styles.wizard}>
-			<Card shadow noPadding className={styles.card}>
-				<div className={styles.stepperWrapper}>
-					<Stepper steps={steps.map((step) => step.title)} currentStep={value.step} />
-				</div>
+		<Card shadow noPadding>
+			<div className={styles.stepperWrapper}>
+				<Stepper steps={steps.map((step) => step.title)} currentStep={value.step} />
+			</div>
 
-				<div className={styles.content}>{steps[value?.step]?.content}</div>
+			<div className={styles.content}>{steps[value?.step]?.content}</div>
 
-				<div className={styles.footer}>
-					{value.step === 0 && (
-						<Button
-							fullWidth
-							size="large"
-							icon={<LuChevronRight />}
-							iconPosition="end"
-							disabled={!value.area}
-							onClick={() => setStep(1)}
-						>
-							{t("next")}
-						</Button>
-					)}
-					{value.step === 1 && (
-						<Button
-							fullWidth
-							size="large"
-							icon={<LuSearch />}
-							iconPosition="end"
-							disabled={!value.category}
-							onClick={onSubmit}
-						>
-							{t("submit")}
-						</Button>
-					)}
-				</div>
-			</Card>
-		</section>
+			<div className={styles.footer}>
+				{value.step === 0 && (
+					<Button
+						fullWidth
+						size="large"
+						icon={<LuChevronRight />}
+						iconPosition="end"
+						disabled={!value.area}
+						onClick={() => setStep(1)}
+					>
+						{t("next")}
+					</Button>
+				)}
+				{value.step === 1 && (
+					<Button
+						fullWidth
+						size="large"
+						icon={<LuSearch />}
+						iconPosition="end"
+						disabled={!value.category}
+						onClick={onSubmit}
+					>
+						{t("submit")}
+					</Button>
+				)}
+			</div>
+		</Card>
 	);
 };

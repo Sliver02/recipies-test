@@ -6,6 +6,10 @@ import { useRecipes } from "@/context/RecipesContext";
 import { useMealMatcher } from "@/hooks/useMealMatcher";
 import { useState } from "react";
 import type { SearchState } from "@/types/meal";
+import { Container } from "@/components/atoms/Grid/Container/Container";
+import { Row } from "@/components/atoms/Grid/Row/Row";
+import { Col } from "@/components/atoms/Grid/Col/Col";
+import { Justify } from "@/components/atoms/Grid/interfaces";
 
 const INITIAL: SearchState = { area: "", category: "", step: 0 };
 
@@ -87,5 +91,13 @@ export default function Page() {
 		);
 	}
 
-	return <SearchWizard value={search} onChange={handleChange} onSubmit={handleSubmit} />;
+	return (
+		<Container>
+			<Row xsJustify={Justify.center}>
+				<Col xs={12} lg={6} xl={5}>
+					<SearchWizard value={search} onChange={handleChange} onSubmit={handleSubmit} />
+				</Col>
+			</Row>
+		</Container>
+	);
 }

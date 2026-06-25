@@ -31,7 +31,7 @@ export const Header = ({ logo, navItems, className }: HeaderProps) => {
 			{/* Logo */}
 			<div className={styles.logo}>
 				<Link href="/" className={styles.logoLink} onClick={() => setMenuOpen(false)}>
-					{logo ?? <span className={styles.logoText}>Logo</span>}
+					{logo ?? <span className={styles.logoText}>Recipie Wizard</span>}
 				</Link>
 			</div>
 
