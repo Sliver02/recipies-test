@@ -110,6 +110,8 @@
 
 .popup {
 	min-width: var(--anchor-width);
+	max-height: min(320px, var(--available-height, 50vh));
+	overflow-y: auto;
 	background-color: var(--color-bg-raised);
 	border: 1px solid var(--color-border);
 	border-radius: 0.375rem;
