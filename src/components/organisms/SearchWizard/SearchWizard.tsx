@@ -16,6 +16,12 @@ import styles from "./SearchWizard.module.scss";
 
 const INITIAL: SearchState = { area: "", category: "", step: 0 };
 
+enum SearchWizardStep {
+	Area = 0,
+	Category = 1,
+	Results = 2,
+}
+
 interface SearchWizardStepProps {
 	title: string;
 	content: React.ReactNode;
@@ -27,7 +33,7 @@ export const SearchWizard = () => {
 
 	const [search, setSearch] = useState<SearchState>(currentSearch ?? INITIAL);
 
-	const submitted = search.step === 2;
+	const submitted = search.step === SearchWizardStep.Results;
 	const excludeIds = history.map((e) => e.id);
 
 	const { meal, loading, error, next } = useMealMatcher({
@@ -56,7 +62,7 @@ export const SearchWizard = () => {
 	}, []);
 
 	useEffect(() => {
-		if (search.step < 1) return;
+		if (search.step < SearchWizardStep.Category) return;
 		const load = async () => {
 			setLoadingCategories(true);
 			try {
@@ -82,7 +88,7 @@ export const SearchWizard = () => {
 	const handleSubmit = () => update({ ...search, step: 2 });
 
 	const handleChangeSearch = () => {
-		setSearch({ ...search, step: 0 });
+		setSearch(INITIAL);
 		clearSearch();
 	};
 
@@ -150,7 +156,7 @@ export const SearchWizard = () => {
 					disabled={loadingCategories}
 				/>
 			</div>
-			<button className={styles.backLink} onClick={() => setStep(0)}>
+			<button className={styles.backLink} onClick={() => setStep(SearchWizardStep.Area)}>
 				<LuChevronLeft size={14} />
 				{t("back")}
 			</button>
@@ -178,38 +184,42 @@ export const SearchWizard = () => {
 
 	return (
 		<Card shadow noPadding>
-			<div className={styles.stepperWrapper}>
-				<Stepper steps={steps.map((step) => step.title)} currentStep={search.step} />
-			</div>
+			{!(submitted && loading) && (
+				<div className={styles.stepperWrapper}>
+					<Stepper steps={steps.map((step) => step.title)} currentStep={search.step} />
+				</div>
+			)}
 
 			<div className={styles.content}>{steps[search.step]?.content}</div>
 
-			<div className={styles.footer}>
-				{search.step === 0 && (
-					<Button
-						fullWidth
-						size="large"
-						icon={<LuChevronRight />}
-						iconPosition="end"
-						disabled={!search.area}
-						onClick={() => setStep(1)}
-					>
-						{t("next")}
-					</Button>
-				)}
-				{search.step === 1 && (
-					<Button
-						fullWidth
-						size="large"
-						icon={<LuSearch />}
-						iconPosition="end"
-						disabled={!search.category}
-						onClick={handleSubmit}
-					>
-						{t("submit")}
-					</Button>
-				)}
-			</div>
+			{search.step < SearchWizardStep.Results && (
+				<div className={styles.footer}>
+					{search.step === SearchWizardStep.Area && (
+						<Button
+							fullWidth
+							size="large"
+							icon={<LuChevronRight />}
+							iconPosition="end"
+							disabled={!search.area}
+							onClick={() => setStep(SearchWizardStep.Category)}
+						>
+							{t("next")}
+						</Button>
+					)}
+					{search.step === SearchWizardStep.Category && (
+						<Button
+							fullWidth
+							size="large"
+							icon={<LuSearch />}
+							iconPosition="end"
+							disabled={!search.category}
+							onClick={handleSubmit}
+						>
+							{t("submit")}
+						</Button>
+					)}
+				</div>
+			)}
 		</Card>
 	);
 };
