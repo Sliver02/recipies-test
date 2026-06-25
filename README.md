@@ -1,147 +1,65 @@
-# Next.js Simple Template
+# Recipe Wizard
 
-A bare, immediately-usable Next.js 16 starter. Atomic design enforced, i18n wired, contact form pre-built — no Tailwind, no bloat.
-
-## Stack
-
-| Layer             | Choice                                         |
-| ----------------- | ---------------------------------------------- |
-| Framework         | Next.js 16 (App Router)                        |
-| Language          | TypeScript 5 strict                            |
-| Styling           | SCSS Modules — two-layer design token system   |
-| Primitives        | `@base-ui/react` (Button, Checkbox, Select)    |
-| i18n              | `next-intl` v4 — EN + IT out of the box        |
-| Forms             | `react-hook-form` + `zod` + `@emailjs/browser` |
-| Class composition | `classnames`                                   |
+A two-step recipe recommender built with Next.js 16. Pick a cuisine and a category, get a matched recipe from TheMealDB, and save your reactions. History is persisted in `localStorage` and accessible at any time.
 
 ## Quick start
 
 ```bash
-git clone <repo-url> my-app
-cd my-app
 npm install
-cp .env.local.example .env.local   # fill in EmailJS credentials
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000). No API keys or environment variables required — TheMealDB is free and open.
 
-## Environment variables
+## Features
 
-Copy `.env.local.example` to `.env.local` and fill in your [EmailJS](https://www.emailjs.com/) credentials:
+- **Two-step wizard** — select a cuisine/area (step 1) then a category (step 2), move freely back and forth without losing state
+- **Dynamic autocomplete** — both fields filter options as you type
+- **Recommendation card** — shows title, image, area, category, a link to the source recipe, and a YouTube link when available
+- **Like / Dislike** — saves the reaction to `localStorage` with recipe ID, title, image, timestamp, and the search inputs used
+- **New Idea** — cycles through other matching recipes without repeating what you've already rated
+- **My Recipes** — history page with All / Liked / Disliked filter tabs and a live search field
+- **Recipe detail page** — full-width hero image, ingredient list with measures, step-by-step instructions, share link (copies URL to clipboard)
+- **EN / IT** — full internationalisation via `next-intl`
 
-```
-NEXT_PUBLIC_EMAILJS_SERVICE=   # EmailJS service ID
-NEXT_PUBLIC_EMAILJS_TEMPLATE=  # EmailJS template ID
-NEXT_PUBLIC_EMAILJS_KEY=       # EmailJS public key
-```
+## Stack
 
-## Project structure
+| Layer      | Choice                                        |
+| ---------- | --------------------------------------------- |
+| Framework  | Next.js 16 (App Router, server + client mix)  |
+| Language   | TypeScript 5 strict                           |
+| Styling    | SCSS Modules — two-layer design token system  |
+| i18n       | `next-intl` v4                                |
+| Icons      | `react-icons` (lu + hi sets)                  |
 
-```
-src/
-├── app/
-│   └── [locale]/          # locale-scoped shell
-│       ├── layout.tsx     # html/body + Header/Footer + NextIntlClientProvider
-│       ├── page.tsx       # demo/home page
-│       ├── not-found.tsx  # 404
-│       └── error.tsx      # runtime error boundary
-├── common/
-│   ├── globalInterfaces.ts        # shared enums + interfaces
-│   └── emailTemplates/
-│       └── ContactTemplate.tsx    # HTML email rendered server-side
-├── components/
-│   ├── atoms/             # Button, Alert, Checkbox, Select, Grid, TextField, Background
-│   ├── molecules/         # (add yours here)
-│   ├── organisms/         # Contact, Header, Footer
-│   └── templates/         # (add yours here)
-├── designSystem/
-│   ├── globals.scss       # two-layer CSS tokens + reset
-│   ├── variables.scss     # font scales, breakpoints, spacing maps
-│   ├── mediaQueries.scss  # media() mixin
-│   ├── text.scss          # h1-h4 + text utility classes
-│   └── utils.scss         # toRem(), .onlyMobile, .onlyDesktop
-├── hooks/
-│   └── useScroll.ts       # { scrollY, scrollX, direction }
-├── i18n/
-│   ├── routing.ts         # locales, routing, Link, redirect, …
-│   └── request.ts         # getRequestConfig — loads public/messages/*.json
-└── proxy.ts               # next-intl createMiddleware (named proxy, not middleware)
+## Design decisions
 
-public/
-└── messages/
-    ├── en.json
-    └── it.json
-```
+### Recommendation logic (`useMealMatcher`)
 
-## Adding a page
+TheMealDB has no single endpoint that filters by both area and category simultaneously. The hook fetches both filter lists in parallel and takes their **intersection**. If the intersection is empty (the combination doesn't exist in the DB), it falls back to the **union** so the user always gets a result. The pool is shuffled with Fisher-Yates so repeated "New Idea" clicks give a random order without repeats.
 
-1. Create `src/app/[locale]/your-page/page.tsx`
-2. Add an i18n key block to both `public/messages/en.json` and `public/messages/it.json`
-3. Link to `/your-page` using `Link` from `@/i18n/routing` for locale-aware navigation
+`excludeIds` (recipes already rated) are applied once when the candidate pool is built, not on every `next()` call, to avoid re-fetching the filter lists on each like/dislike.
 
-## Adding translations
+### Persistence strategy
 
-All translation files live in `public/messages/`. Add the same key to every locale file:
+All history is stored in a single `localStorage` key (`recipe-history`) as a JSON array. The context reads it once on mount (client-only, inside `useEffect`) to avoid SSR hydration mismatches. Adding a new entry for an already-rated recipe replaces the old entry rather than duplicating it.
 
-```json
-// en.json
-{ "myPage": { "title": "Hello" } }
+### API proxy
 
-// it.json
-{ "myPage": { "title": "Ciao" } }
-```
+Next.js route handlers in `src/app/api/meals/` proxy TheMealDB. This keeps the third-party origin out of client code and enables `next: { revalidate: 3600 }` caching — filter lists and recipe details are re-fetched at most once per hour.
 
-Use in server components:
+### Wizard state
 
-```ts
-const t = await getTranslations("myPage");
-t("title"); // "Hello"
-```
+The wizard's `SearchState` (area, category, current step) lives in a React context (`RecipesContext`) rather than local component state. This means navigating away and back preserves the in-progress selection without URL-based state.
 
-Use in client components:
+### No external state manager
 
-```ts
-const t = useTranslations("myPage");
-t("title"); // "Hello"
-```
-
-## Design tokens
-
-Components reference semantic CSS variables only — never palette primitives directly:
-
-```scss
-// correct
-color: var(--color-text);
-background: var(--color-primary);
-
-// wrong
-color: var(--palette-neutral-900);
-```
-
-Toggle dark mode by setting `data-theme="dark"` on `<html>`.
-
-## Grid
-
-```tsx
-import { Container, Row, Col } from "@/components/atoms/Grid";
-
-<Container>
-	<Row>
-		<Col xs={12} md={6} lg={4}>
-			…
-		</Col>
-	</Row>
-</Container>;
-```
-
-Responsive col/offset/order/alignSelf classes generated for every breakpoint: `xs sm md lg xl xxl`.
+Context + `useState` is sufficient at this scale. Adding Redux or Zustand would be premature.
 
 ## Scripts
 
-| Command         | Description             |
-| --------------- | ----------------------- |
-| `npm run dev`   | Dev server              |
-| `npm run build` | Production build        |
-| `npm run start` | Start production server |
-| `npm run lint`  | ESLint                  |
+| Command         | Description      |
+| --------------- | ---------------- |
+| `npm run dev`   | Dev server       |
+| `npm run build` | Production build |
+| `npm run lint`  | ESLint           |
