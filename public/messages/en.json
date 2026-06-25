@@ -51,7 +51,12 @@
 		"next": "Next",
 		"back": "Back",
 		"submit": "Find a recipe",
-		"loading": "Loading options…"
+		"loading": "Loading options…",
+		"steps": {
+			"area": "Region",
+			"category": "Category",
+			"results": "Results"
+		}
 	},
 	"recommendation": {
 		"question": "Did it match your preference?",

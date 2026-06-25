@@ -50,7 +50,12 @@
 		"next": "Avanti",
 		"back": "Indietro",
 		"submit": "Trova una ricetta",
-		"loading": "Caricamento opzioni…"
+		"loading": "Caricamento opzioni…",
+		"steps": {
+			"area": "Regione",
+			"category": "Categoria",
+			"results": "Risultati"
+		}
 	},
 	"recommendation": {
 		"question": "Corrisponde alle tue preferenze?",

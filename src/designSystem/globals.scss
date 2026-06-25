@@ -7,24 +7,24 @@
 // Swap brand colors here; semantic tokens below pick them up automatically.
 :root {
 	--palette-neutral-0: #ffffff;
-	--palette-neutral-50: #faf9f6;
-	--palette-neutral-100: #f2efe9;
-	--palette-neutral-200: #e5e1da;
-	--palette-neutral-400: #a8a29e;
-	--palette-neutral-600: #57534e;
-	--palette-neutral-800: #292524;
-	--palette-neutral-900: #1a1a1a;
+	--palette-neutral-50: #fdf5ec;
+	--palette-neutral-100: #faeedd;
+	--palette-neutral-200: #f0e3d0;
+	--palette-neutral-400: #a89880;
+	--palette-neutral-600: #6b5a48;
+	--palette-neutral-800: #2e2218;
+	--palette-neutral-900: #1c160f;
 	--palette-neutral-1000: #000000;
 
-	--palette-primary-100: #f1efe0;
-	--palette-primary-300: #8da49d;
-	--palette-primary-500: #1a3c34; /* Dark Forest Green */
-	--palette-primary-700: #132d27;
-	--palette-primary-900: #0d1e1a;
+	--palette-primary-100: #e8f4ee;
+	--palette-primary-300: #6aaa88;
+	--palette-primary-500: #1a5c3c; /* Forest Green */
+	--palette-primary-700: #134830;
+	--palette-primary-900: #0c3320;
 
-	--palette-accent-300: #fdba74;
-	--palette-accent-500: #fb7d5b; /* Coral/Peach */
-	--palette-accent-700: #e26a4a;
+	--palette-accent-300: #fdc08a;
+	--palette-accent-500: #f4845f; /* Warm Coral */
+	--palette-accent-700: #e06840;
 
 	--palette-error-500: #d94545;
 	--palette-success-500: #2c6e49; /* Earthy Green */

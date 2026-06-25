@@ -10,6 +10,8 @@ export interface CardProps extends BaseProps {
 	subtitle?: string;
 	rightMenu?: ReactNode;
 	onClick?: React.MouseEventHandler<HTMLDivElement>;
+	shadow?: boolean;
+	noPadding?: boolean;
 }
 
 export const Card = ({
@@ -19,13 +21,21 @@ export const Card = ({
 	children,
 	className,
 	onClick,
+	shadow,
+	noPadding,
 	...props
 }: CardProps) => {
 	const hasHeader = title || subtitle || rightMenu;
 
 	return (
 		<div
-			className={classNames(styles.card, onClick && styles.clickable, className)}
+			className={classNames(
+				styles.card,
+				onClick && styles.clickable,
+				shadow && styles.shadow,
+				noPadding && styles.noPadding,
+				className
+			)}
 			onClick={onClick}
 			{...props}
 		>

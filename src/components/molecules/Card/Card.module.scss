@@ -16,6 +16,21 @@
 	overflow: hidden;
 }
 
+.shadow {
+	box-shadow:
+		0 12px 48px rgba(26, 92, 60, 0.1),
+		0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.noPadding {
+	padding: 0;
+	gap: 0;
+
+	.content {
+		padding: 0;
+	}
+}
+
 .clickable {
 	cursor: pointer;
 
