@@ -1,0 +1,32 @@
+@use "../../../designSystem/variables";
+@use "../../../designSystem/utils";
+
+.list {
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+}
+
+.item {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 0.75rem;
+	padding: 0.5rem 0;
+	border-bottom: 1px solid var(--color-border);
+
+	&:last-child {
+		border-bottom: none;
+	}
+}
+
+.name {
+	@include utils.toRem(font-size, variables.$font-md);
+	font-weight: 500;
+}
+
+.measure {
+	@include utils.toRem(font-size, variables.$font-sm);
+	color: var(--color-text-secondary);
+	white-space: nowrap;
+}

@@ -1,0 +1,21 @@
+@use "../../../designSystem/variables";
+@use "../../../designSystem/utils";
+
+.tag {
+	display: inline-flex;
+	align-items: center;
+	border-radius: 999px;
+	background-color: var(--color-bg-sunken);
+	color: var(--color-text-secondary);
+	font-weight: 500;
+}
+
+.sm {
+	@include utils.toRem(font-size, variables.$font-sm);
+	padding: 0.2rem 0.6rem;
+}
+
+.md {
+	@include utils.toRem(font-size, variables.$font-md);
+	padding: 0.35rem 1rem;
+}

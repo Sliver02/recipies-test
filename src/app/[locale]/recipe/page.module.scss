@@ -84,14 +84,6 @@
 	}
 }
 
-.tag {
-	@include utils.toRem(font-size, variables.$font-md);
-	padding: 0.35rem 1rem;
-	border-radius: 999px;
-	background-color: var(--color-bg-sunken);
-	color: var(--color-text-secondary);
-	font-weight: 500;
-}
 
 .actions {
 	display: flex;
@@ -104,34 +96,6 @@
 	}
 }
 
-.externalLink {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.35rem;
-	padding: 0.35rem 0.75rem;
-	border-radius: 0.5rem;
-	border: 1px solid var(--color-border);
-	color: var(--color-text);
-	@include utils.toRem(font-size, variables.$font-sm);
-	font-weight: 500;
-	text-decoration: none;
-	white-space: nowrap;
-	transition: border-color 0.15s ease, color 0.15s ease;
-
-	&:hover {
-		border-color: var(--color-primary);
-		color: var(--color-primary);
-	}
-
-	&.youtube {
-		color: #ff0000;
-		border-color: rgba(255, 0, 0, 0.3);
-
-		&:hover {
-			border-color: #ff0000;
-		}
-	}
-}
 
 .body {
 	display: grid;
@@ -148,35 +112,6 @@
 	color: var(--color-text);
 }
 
-.ingredientList {
-	list-style: none;
-	display: flex;
-	flex-direction: column;
-}
-
-.ingredientItem {
-	display: flex;
-	justify-content: space-between;
-	align-items: baseline;
-	gap: 0.75rem;
-	padding: 0.5rem 0;
-	border-bottom: 1px solid var(--color-border);
-
-	&:last-child {
-		border-bottom: none;
-	}
-}
-
-.ingredientName {
-	@include utils.toRem(font-size, variables.$font-md);
-	font-weight: 500;
-}
-
-.ingredientMeasure {
-	@include utils.toRem(font-size, variables.$font-sm);
-	color: var(--color-text-secondary);
-	white-space: nowrap;
-}
 
 .instructionsParagraphs {
 	display: flex;

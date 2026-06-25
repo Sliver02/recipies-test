@@ -80,13 +80,17 @@
 	},
 	"myRecipes": {
 		"title": "My Recipes",
-		"empty": "No recipes here yet.",
+		"empty": "No recipes saved yet. Start exploring!",
 		"filterAll": "All",
 		"filterLiked": "Liked",
 		"filterDisliked": "Disliked",
-		"searchPlaceholder": "Search your recipes…",
+		"searchLabel": "Search by name…",
 		"liked": "Liked",
 		"disliked": "Disliked",
+		"emptyLiked": "No liked recipes yet.",
+		"emptyLikedFiltered": "No liked recipes match your search.",
+		"emptyDisliked": "No disliked recipes yet.",
+		"emptyDislikedFiltered": "No disliked recipes match your search.",
 		"toggleStatus": "Toggle status",
 		"remove": "Remove"
 	}

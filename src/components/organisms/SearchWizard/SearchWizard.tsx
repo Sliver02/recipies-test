@@ -92,11 +92,6 @@ export const SearchWizard = () => {
 		clearSearch();
 	};
 
-	const handleRetry = () => {
-		setSearch(INITIAL);
-		clearSearch();
-	};
-
 	const handleLike = () => {
 		if (!meal) return;
 		addEntry({
@@ -172,7 +167,6 @@ export const SearchWizard = () => {
 			onDislike={handleDislike}
 			onNext={next}
 			onChangeSearch={handleChangeSearch}
-			onRetry={handleRetry}
 		/>
 	);
 

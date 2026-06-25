@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/atoms/Button";
+import { Tag } from "@/components/atoms/Tag";
 import { Link } from "@/i18n/routing";
 import type { MealDetail } from "@/types/meal";
 import { useTranslations } from "next-intl";
@@ -21,7 +22,6 @@ interface RecipeRecommendationProps {
 	onDislike: () => void;
 	onNext: () => void;
 	onChangeSearch: () => void;
-	onRetry: () => void;
 }
 
 export const RecipeRecommendation = ({
@@ -81,8 +81,8 @@ export const RecipeRecommendation = ({
 				</Link>
 				{(meal.strArea || meal.strCategory) && (
 					<div className={styles.chips}>
-						{meal.strArea && <span className={`${styles.chip} text--p-sm`}>{meal.strArea}</span>}
-						{meal.strCategory && <span className={`${styles.chip} text--p-sm`}>{meal.strCategory}</span>}
+						{meal.strArea && <Tag>{meal.strArea}</Tag>}
+						{meal.strCategory && <Tag>{meal.strCategory}</Tag>}
 					</div>
 				)}
 			</div>

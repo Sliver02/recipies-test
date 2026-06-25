@@ -79,13 +79,17 @@
 	},
 	"myRecipes": {
 		"title": "Le mie ricette",
-		"empty": "Nessuna ricetta ancora.",
+		"empty": "Nessuna ricetta salvata. Inizia a esplorare!",
 		"filterAll": "Tutte",
 		"filterLiked": "Piaciute",
 		"filterDisliked": "Non piaciute",
-		"searchPlaceholder": "Cerca le tue ricette…",
-		"liked": "Piaciuta",
-		"disliked": "Non piaciuta",
+		"searchLabel": "Cerca per nome…",
+		"liked": "Piaciute",
+		"disliked": "Non piaciute",
+		"emptyLiked": "Nessuna ricetta piaciuta ancora.",
+		"emptyLikedFiltered": "Nessuna ricetta piaciuta corrisponde alla ricerca.",
+		"emptyDisliked": "Nessuna ricetta non piaciuta ancora.",
+		"emptyDislikedFiltered": "Nessuna ricetta non piaciuta corrisponde alla ricerca.",
 		"toggleStatus": "Cambia stato",
 		"remove": "Rimuovi"
 	}

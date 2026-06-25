@@ -28,14 +28,6 @@
 	flex-wrap: wrap;
 }
 
-.tag {
-	@include utils.toRem(font-size, variables.$font-sm);
-	padding: 0.2rem 0.6rem;
-	border-radius: 999px;
-	background-color: var(--color-bg-sunken);
-	color: var(--color-text-secondary);
-	font-weight: 500;
-}
 
 .heartIcon {
 	position: absolute;
@@ -70,18 +62,6 @@
 	}
 }
 
-.sourceLink {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.25rem;
-	color: var(--color-primary);
-	@include utils.toRem(font-size, variables.$font-sm);
-	text-decoration: none;
-
-	&:hover {
-		text-decoration: underline;
-	}
-}
 
 .titleLink {
 	color: inherit;

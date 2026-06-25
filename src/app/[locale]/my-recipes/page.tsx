@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import { useRecipes } from "@/context/RecipesContext";
 import { Col, Container, Row } from "@/components/atoms/Grid";
 import { Input } from "@/components/atoms/Input";
@@ -24,16 +25,17 @@ function entryToMeal(entry: HistoryEntry): MealDetail {
 	};
 }
 
-const STATUS_FILTERS: { value: StatusFilter; label: string }[] = [
-	{ value: "all", label: "All" },
-	{ value: "liked", label: "Liked" },
-	{ value: "disliked", label: "Disliked" },
-];
-
 export default function MyRecipesPage() {
+	const t = useTranslations("myRecipes");
 	const { history, toggleStatus } = useRecipes();
 	const [query, setQuery] = useState("");
 	const [filter, setFilter] = useState<StatusFilter>("all");
+
+	const STATUS_FILTERS: { value: StatusFilter; label: string }[] = [
+		{ value: "all", label: t("filterAll") },
+		{ value: "liked", label: t("filterLiked") },
+		{ value: "disliked", label: t("filterDisliked") },
+	];
 
 	const filtered = useMemo(() => {
 		const normalized = query.toLowerCase();
@@ -56,14 +58,14 @@ export default function MyRecipesPage() {
 		<Container>
 			<Row>
 				<Col xs={12}>
-					<h1 className={`text--h-md ${styles.pageTitle}`}>My Recipes</h1>
+					<h1 className={`text--h-md ${styles.pageTitle}`}>{t("title")}</h1>
 				</Col>
 			</Row>
 
 			<Row>
 				<Col xs={12} md={7} lg={6}>
 					<Input
-						label="Search by name…"
+						label={t("searchLabel")}
 						fullWidth
 						value={query}
 						onChange={(e) => setQuery(e.target.value)}
@@ -88,9 +90,7 @@ export default function MyRecipesPage() {
 			{history.length === 0 ? (
 				<Row>
 					<Col xs={12}>
-						<p className={`text--p-md ${styles.empty}`}>
-							No recipes saved yet. Start exploring!
-						</p>
+						<p className={`text--p-md ${styles.empty}`}>{t("empty")}</p>
 					</Col>
 				</Row>
 			) : (
@@ -98,19 +98,21 @@ export default function MyRecipesPage() {
 					{showLiked && (
 						<section className={styles.section}>
 							<h2 className={`text--h-xs ${styles.sectionTitle} ${styles.liked}`}>
-								Liked
+								{t("liked")}
 							</h2>
 							{liked.length === 0 ? (
 								<p className={`text--p-md ${styles.empty}`}>
-									{query
-										? "No liked recipes match your search."
-										: "No liked recipes yet."}
+									{query ? t("emptyLikedFiltered") : t("emptyLiked")}
 								</p>
 							) : (
 								<Row>
 									{liked.map((entry) => (
 										<Col key={entry.id} xs={12} md={6} lg={4}>
-											<RecipeCard meal={entryToMeal(entry)} badge="liked" onToggle={() => toggleStatus(entry.id)} />
+											<RecipeCard
+												meal={entryToMeal(entry)}
+												badge="liked"
+												onToggle={() => toggleStatus(entry.id)}
+											/>
 										</Col>
 									))}
 								</Row>
@@ -121,13 +123,11 @@ export default function MyRecipesPage() {
 					{showDisliked && (
 						<section className={styles.section}>
 							<h2 className={`text--h-xs ${styles.sectionTitle} ${styles.disliked}`}>
-								Disliked
+								{t("disliked")}
 							</h2>
 							{disliked.length === 0 ? (
 								<p className={`text--p-md ${styles.empty}`}>
-									{query
-										? "No disliked recipes match your search."
-										: "No disliked recipes yet."}
+									{query ? t("emptyDislikedFiltered") : t("emptyDisliked")}
 								</p>
 							) : (
 								<Row>

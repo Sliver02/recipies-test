@@ -1,5 +1,8 @@
 import { Col, Container, Row } from "@/components/atoms/Grid";
 import { Justify } from "@/components/atoms/Grid/interfaces";
+import { ExternalLink } from "@/components/atoms/ExternalLink";
+import { Tag } from "@/components/atoms/Tag";
+import { IngredientList } from "@/components/molecules/IngredientList";
 import { Link } from "@/i18n/routing";
 import type { MealDetail } from "@/types/meal";
 import { getTranslations } from "next-intl/server";
@@ -23,7 +26,7 @@ async function getMeal(id: string): Promise<MealDetail | null> {
 	}
 }
 
-function getIngredients(meal: MealDetail): { name: string; measure: string }[] {
+function getIngredients(meal: MealDetail) {
 	return Array.from({ length: 20 }, (_, i) => i + 1)
 		.map((i) => ({
 			name: (meal[`strIngredient${i}`] as string | null)?.trim() ?? "",
@@ -95,12 +98,8 @@ export default async function RecipePage({
 
 										<div className={styles.meta}>
 											<div className={styles.tags}>
-												{meal.strArea && (
-													<span className={styles.tag}>{meal.strArea}</span>
-												)}
-												{meal.strCategory && (
-													<span className={styles.tag}>{meal.strCategory}</span>
-												)}
+												{meal.strArea && <Tag size="md">{meal.strArea}</Tag>}
+												{meal.strCategory && <Tag size="md">{meal.strCategory}</Tag>}
 											</div>
 
 											<div className={styles.actions}>
@@ -109,26 +108,21 @@ export default async function RecipePage({
 													copied={t("shareCopied")}
 												/>
 												{meal.strSource && (
-													<a
+													<ExternalLink
 														href={meal.strSource}
-														target="_blank"
-														rel="noopener noreferrer"
-														className={styles.externalLink}
+														icon={<LuExternalLink size={13} />}
 													>
-														<LuExternalLink size={13} />
 														{t("viewSource")}
-													</a>
+													</ExternalLink>
 												)}
 												{meal.strYoutube && (
-													<a
+													<ExternalLink
 														href={meal.strYoutube}
-														target="_blank"
-														rel="noopener noreferrer"
-														className={`${styles.externalLink} ${styles.youtube}`}
+														icon={<LuYoutube size={14} />}
+														variant="youtube"
 													>
-														<LuYoutube size={14} />
 														{t("watchVideo")}
-													</a>
+													</ExternalLink>
 												)}
 											</div>
 										</div>
@@ -143,18 +137,7 @@ export default async function RecipePage({
 										>
 											{t("ingredients")}
 										</h2>
-										<ul className={styles.ingredientList}>
-											{ingredients.map(({ name, measure }) => (
-												<li key={name} className={styles.ingredientItem}>
-													<span className={styles.ingredientName}>{name}</span>
-													{measure && (
-														<span className={styles.ingredientMeasure}>
-															{measure}
-														</span>
-													)}
-												</li>
-											))}
-										</ul>
+										<IngredientList ingredients={ingredients} />
 									</section>
 
 									<section aria-labelledby="instructions-title">

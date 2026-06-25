@@ -1,5 +1,7 @@
 import { Card } from "@/components/molecules/Card";
 import { Background } from "@/components/atoms/Background";
+import { ExternalLink } from "@/components/atoms/ExternalLink";
+import { Tag } from "@/components/atoms/Tag";
 import { Link } from "@/i18n/routing";
 import classNames from "classnames";
 import Image from "next/image";
@@ -53,20 +55,14 @@ export const RecipeCard = ({ meal, badge, onToggle, actions, className }: Recipe
 			</Link>
 
 			<div className={styles.meta}>
-				{meal.strArea && <span className={styles.tag}>{meal.strArea}</span>}
-				{meal.strCategory && <span className={styles.tag}>{meal.strCategory}</span>}
+				{meal.strArea && <Tag>{meal.strArea}</Tag>}
+				{meal.strCategory && <Tag>{meal.strCategory}</Tag>}
 			</div>
 
 			{meal.strSource && (
-				<a
-					href={meal.strSource}
-					target="_blank"
-					rel="noopener noreferrer"
-					className={styles.sourceLink}
-				>
-					<LuExternalLink aria-hidden />
+				<ExternalLink href={meal.strSource} icon={<LuExternalLink aria-hidden />} variant="inline">
 					View recipe
-				</a>
+				</ExternalLink>
 			)}
 		</div>
 	</Card>
