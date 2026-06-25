@@ -11,14 +11,14 @@
 	width: 100%;
 	max-width: var(--max-width);
 	margin: 0 auto;
-	padding: 0 1rem;
+	padding: 1rem;
 
 	@include mq.media("sm") {
-		padding: 0 2rem;
+		padding: 2rem;
 	}
 
 	@include mq.media("lg") {
-		padding: 0 2.5rem;
+		padding: 2.5rem;
 	}
 }
 

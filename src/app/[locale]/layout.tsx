@@ -42,7 +42,7 @@ export default async function LocaleLayout({
 								{ href: "/my-recipes", label: t("myRecipes") },
 							]}
 						/>
-						<main style={{ paddingTop: "4.5rem" }}>{children}</main>
+						<main>{children}</main>
 						<Footer
 							navItems={[
 								{ href: "/", label: t("home") },
