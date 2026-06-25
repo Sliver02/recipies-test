@@ -1,42 +1,53 @@
 @use "../../../designSystem/variables";
 @use "../../../designSystem/utils";
-@use "../../../designSystem/mediaQueries" as mq;
 
-.section {
-	padding: 3rem 0;
+.loading {
+	padding: 2rem 0;
+	color: var(--color-text-secondary);
+	text-align: center;
+}
+
+.empty {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.title {
+	color: var(--color-text);
+}
+
+.subtitle {
+	color: var(--color-text-secondary);
+	margin-bottom: 0.5rem;
+}
+
+.result {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
 }
 
 .question {
 	@include utils.toRem(font-size, variables.$font-lg);
 	font-weight: 600;
-	margin-bottom: 1.25rem;
 	color: var(--color-text);
 }
 
 .feedback {
 	display: flex;
 	gap: 0.75rem;
+}
+
+.secondaryActions {
+	display: flex;
+	gap: 0.75rem;
 	flex-wrap: wrap;
-	margin-bottom: 2rem;
 }
 
 .actions {
 	display: flex;
+	flex-direction: column;
 	gap: 0.75rem;
-	flex-wrap: wrap;
-	margin-top: 1.5rem;
-}
-
-.loading {
-	padding: 3rem 0;
-	color: var(--color-text-secondary);
-}
-
-.title {
-	margin-bottom: 0.5rem;
-	color: var(--color-text);
-}
-
-.subtitle {
-	color: var(--color-text-secondary);
+	margin-top: 0.5rem;
 }

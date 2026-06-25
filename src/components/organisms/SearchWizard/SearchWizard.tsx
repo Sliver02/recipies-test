@@ -2,33 +2,42 @@
 
 import { Autocomplete } from "@/components/atoms/Autocomplete";
 import { Button } from "@/components/atoms/Button";
-import { Select } from "@/components/atoms/Select";
 import { Card } from "@/components/molecules/Card";
 import { Stepper } from "@/components/molecules/Stepper";
+import { RecipeRecommendation } from "@/components/organisms/RecipeRecommendation";
+import { useRecipes } from "@/context/RecipesContext";
+import { useMealMatcher } from "@/hooks/useMealMatcher";
 import type { AutocompleteOption } from "@/components/atoms/Autocomplete";
-import type { SelectOption } from "@/components/atoms/Select";
 import type { SearchState } from "@/types/meal";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { LuChevronLeft, LuSearch, LuChevronRight } from "react-icons/lu";
 import styles from "./SearchWizard.module.scss";
 
-interface SearchWizardProps {
-	value: SearchState;
-	onChange: (s: SearchState) => void;
-	onSubmit: () => void;
-}
+const INITIAL: SearchState = { area: "", category: "", step: 0 };
 
 interface SearchWizardStepProps {
 	title: string;
 	content: React.ReactNode;
 }
 
-export const SearchWizard = ({ value, onChange, onSubmit }: SearchWizardProps) => {
+export const SearchWizard = () => {
 	const t = useTranslations("wizard");
+	const { currentSearch, setCurrentSearch, clearSearch, addEntry, history } = useRecipes();
+
+	const [search, setSearch] = useState<SearchState>(currentSearch ?? INITIAL);
+
+	const submitted = search.step === 2;
+	const excludeIds = history.map((e) => e.id);
+
+	const { meal, loading, error, next } = useMealMatcher({
+		area: submitted ? search.area : "",
+		category: submitted ? search.category : "",
+		excludeIds,
+	});
 
 	const [areas, setAreas] = useState<AutocompleteOption[]>([]);
-	const [categories, setCategories] = useState<SelectOption[]>([]);
+	const [categories, setCategories] = useState<AutocompleteOption[]>([]);
 	const [loadingAreas, setLoadingAreas] = useState(false);
 	const [loadingCategories, setLoadingCategories] = useState(false);
 
@@ -47,7 +56,7 @@ export const SearchWizard = ({ value, onChange, onSubmit }: SearchWizardProps) =
 	}, []);
 
 	useEffect(() => {
-		if (value.step < 1) return;
+		if (search.step < 1) return;
 		const load = async () => {
 			setLoadingCategories(true);
 			try {
@@ -59,11 +68,56 @@ export const SearchWizard = ({ value, onChange, onSubmit }: SearchWizardProps) =
 			}
 		};
 		load();
-	}, [value.step]);
+	}, [search.step]);
 
-	const setStep = (step: number) => onChange({ ...value, step });
-	const setArea = (area: string) => onChange({ ...value, area });
-	const setCategory = (category: string) => onChange({ ...value, category });
+	const update = (s: SearchState) => {
+		setSearch(s);
+		setCurrentSearch(s);
+	};
+
+	const setStep = (step: number) => update({ ...search, step });
+	const setArea = (area: string) => update({ ...search, area });
+	const setCategory = (category: string) => update({ ...search, category });
+
+	const handleSubmit = () => update({ ...search, step: 2 });
+
+	const handleChangeSearch = () => {
+		setSearch({ ...search, step: 0 });
+		clearSearch();
+	};
+
+	const handleRetry = () => {
+		setSearch(INITIAL);
+		clearSearch();
+	};
+
+	const handleLike = () => {
+		if (!meal) return;
+		addEntry({
+			id: meal.idMeal,
+			title: meal.strMeal,
+			image: meal.strMealThumb,
+			timestamp: Date.now(),
+			area: search.area,
+			category: search.category,
+			status: "liked",
+		});
+		next();
+	};
+
+	const handleDislike = () => {
+		if (!meal) return;
+		addEntry({
+			id: meal.idMeal,
+			title: meal.strMeal,
+			image: meal.strMealThumb,
+			timestamp: Date.now(),
+			area: search.area,
+			category: search.category,
+			status: "disliked",
+		});
+		next();
+	};
 
 	const areaStep = (
 		<>
@@ -73,7 +127,7 @@ export const SearchWizard = ({ value, onChange, onSubmit }: SearchWizardProps) =
 					label={t("step1Label")}
 					placeholder={loadingAreas ? t("loading") : t("step1Placeholder")}
 					options={areas}
-					value={value.area}
+					value={search.area}
 					onValueChange={setArea}
 					fullWidth
 					disabled={loadingAreas}
@@ -90,7 +144,7 @@ export const SearchWizard = ({ value, onChange, onSubmit }: SearchWizardProps) =
 					label={t("step2Label")}
 					placeholder={loadingCategories ? t("loading") : t("step2Placeholder")}
 					options={loadingCategories ? [] : categories}
-					value={value.category}
+					value={search.category}
 					onValueChange={(val) => setCategory(val as string)}
 					fullWidth
 					disabled={loadingCategories}
@@ -103,41 +157,54 @@ export const SearchWizard = ({ value, onChange, onSubmit }: SearchWizardProps) =
 		</>
 	);
 
+	const resultsStep = (
+		<RecipeRecommendation
+			meal={meal}
+			loading={loading}
+			error={error}
+			onLike={handleLike}
+			onDislike={handleDislike}
+			onNext={next}
+			onChangeSearch={handleChangeSearch}
+			onRetry={handleRetry}
+		/>
+	);
+
 	const steps: SearchWizardStepProps[] = [
 		{ title: t("steps.area"), content: areaStep },
 		{ title: t("steps.category"), content: categoryStep },
-		{ title: t("steps.results"), content: null },
+		{ title: t("steps.results"), content: resultsStep },
 	];
 
 	return (
 		<Card shadow noPadding>
 			<div className={styles.stepperWrapper}>
-				<Stepper steps={steps.map((step) => step.title)} currentStep={value.step} />
+				<Stepper steps={steps.map((step) => step.title)} currentStep={search.step} />
 			</div>
 
-			<div className={styles.content}>{steps[value?.step]?.content}</div>
+			<div className={styles.content}>{steps[search.step]?.content}</div>
 
 			<div className={styles.footer}>
-				{value.step === 0 && (
+				{search.step === 0 && (
 					<Button
 						fullWidth
 						size="large"
 						icon={<LuChevronRight />}
 						iconPosition="end"
-						disabled={!value.area}
+						disabled={!search.area}
 						onClick={() => setStep(1)}
 					>
 						{t("next")}
 					</Button>
 				)}
-				{value.step === 1 && (
+				{search.step === 1 && (
 					<Button
 						fullWidth
 						size="large"
 						icon={<LuSearch />}
 						iconPosition="end"
-						disabled={!value.category}
-						onClick={onSubmit}
+						disabled={!search.category}
+						onClick={handleSubmit}
 					>
 						{t("submit")}
 					</Button>
