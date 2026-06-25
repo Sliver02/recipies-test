@@ -74,6 +74,8 @@
 		"back": "Back",
 		"viewSource": "View original recipe",
 		"watchVideo": "Watch on YouTube",
+		"share": "Share",
+		"shareCopied": "Copied!",
 		"notFound": "Recipe not found."
 	},
 	"myRecipes": {

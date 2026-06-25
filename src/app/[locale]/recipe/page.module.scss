@@ -1,0 +1,211 @@
+@use "../../../designSystem/variables";
+@use "../../../designSystem/utils";
+@use "../../../designSystem/mediaQueries" as mq;
+
+.page {
+	padding-block: 2rem 4rem;
+}
+
+.card {
+	background: var(--color-bg-raised);
+	border-radius: 1.25rem;
+	box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
+	overflow: hidden;
+}
+
+.hero {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 16 / 7;
+
+	@include mq.media("md") {
+		aspect-ratio: 16 / 6;
+	}
+}
+
+.heroImage {
+	object-fit: cover;
+}
+
+.content {
+	padding: 1.5rem;
+
+	@include mq.media("md") {
+		padding: 2.5rem;
+	}
+}
+
+.header {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	padding-bottom: 2rem;
+	border-bottom: 1px solid var(--color-border);
+	margin-bottom: 2rem;
+}
+
+.titleRow {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+
+	@include mq.media("md") {
+		flex-direction: row;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 1.5rem;
+	}
+}
+
+.title {
+	line-height: 1.2;
+	flex: 1;
+}
+
+.meta {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+
+	@include mq.media("md") {
+		align-items: flex-end;
+		gap: 0.75rem;
+		flex-shrink: 0;
+	}
+}
+
+.tags {
+	display: flex;
+	gap: 0.5rem;
+	flex-wrap: wrap;
+
+	@include mq.media("md") {
+		justify-content: flex-end;
+	}
+}
+
+.tag {
+	@include utils.toRem(font-size, variables.$font-md);
+	padding: 0.35rem 1rem;
+	border-radius: 999px;
+	background-color: var(--color-bg-sunken);
+	color: var(--color-text-secondary);
+	font-weight: 500;
+}
+
+.actions {
+	display: flex;
+	gap: 0.5rem;
+	flex-wrap: wrap;
+	align-items: center;
+
+	@include mq.media("md") {
+		justify-content: flex-end;
+	}
+}
+
+.externalLink {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	padding: 0.35rem 0.75rem;
+	border-radius: 0.5rem;
+	border: 1px solid var(--color-border);
+	color: var(--color-text);
+	@include utils.toRem(font-size, variables.$font-sm);
+	font-weight: 500;
+	text-decoration: none;
+	white-space: nowrap;
+	transition: border-color 0.15s ease, color 0.15s ease;
+
+	&:hover {
+		border-color: var(--color-primary);
+		color: var(--color-primary);
+	}
+
+	&.youtube {
+		color: #ff0000;
+		border-color: rgba(255, 0, 0, 0.3);
+
+		&:hover {
+			border-color: #ff0000;
+		}
+	}
+}
+
+.body {
+	display: grid;
+	gap: 2.5rem;
+
+	@include mq.media("lg") {
+		grid-template-columns: minmax(200px, 280px) 1fr;
+		align-items: start;
+	}
+}
+
+.sectionTitle {
+	margin-bottom: 1.25rem;
+	color: var(--color-text);
+}
+
+.ingredientList {
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+}
+
+.ingredientItem {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 0.75rem;
+	padding: 0.5rem 0;
+	border-bottom: 1px solid var(--color-border);
+
+	&:last-child {
+		border-bottom: none;
+	}
+}
+
+.ingredientName {
+	@include utils.toRem(font-size, variables.$font-md);
+	font-weight: 500;
+}
+
+.ingredientMeasure {
+	@include utils.toRem(font-size, variables.$font-sm);
+	color: var(--color-text-secondary);
+	white-space: nowrap;
+}
+
+.instructionsParagraphs {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.instructionParagraph {
+	@include utils.toRem(font-size, variables.$font-md);
+	line-height: 1.75;
+	color: var(--color-text);
+}
+
+.notFound {
+	padding: 4rem 2rem;
+	text-align: center;
+	color: var(--color-text-secondary);
+}
+
+.backLink {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	@include utils.toRem(font-size, variables.$font-sm);
+	color: var(--color-text-secondary);
+	text-decoration: none;
+	margin-bottom: 1.25rem;
+
+	&:hover {
+		color: var(--color-primary);
+	}
+}
