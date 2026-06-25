@@ -27,6 +27,7 @@
 	--palette-accent-700: #e06840;
 
 	--palette-error-500: #d94545;
+	--palette-error-700: #b03030;
 	--palette-success-500: #2c6e49; /* Earthy Green */
 	--palette-warning-500: #d97706;
 }
@@ -55,6 +56,7 @@
 	--color-accent-hover: var(--palette-accent-700);
 
 	--color-error: var(--palette-error-500);
+	--color-error-hover: var(--palette-error-700);
 	--color-success: var(--palette-success-500);
 	--color-warning: var(--palette-warning-500);
 

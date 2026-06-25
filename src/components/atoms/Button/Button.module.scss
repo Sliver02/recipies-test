@@ -54,6 +54,71 @@
 	}
 }
 
+// ── color modifiers ───────────────────────────────────────────────────────────
+// Override the color tokens for accent-colored buttons across all variants.
+
+.color-accent {
+	&.contained {
+		background-color: var(--color-accent);
+		color: var(--color-text-inverse);
+		border-color: var(--color-accent);
+
+		&:hover {
+			background-color: var(--color-accent-hover);
+			border-color: var(--color-accent-hover);
+		}
+	}
+
+	&.outlined {
+		color: var(--color-accent);
+		border-color: var(--color-accent);
+
+		&:hover {
+			background-color: var(--color-accent);
+			color: var(--color-text-inverse);
+		}
+	}
+
+	&.text {
+		color: var(--color-accent);
+
+		&:hover {
+			color: var(--color-accent-hover);
+		}
+	}
+}
+
+.color-error {
+	&.contained {
+		background-color: var(--color-error);
+		color: var(--color-text-inverse);
+		border-color: var(--color-error);
+
+		&:hover {
+			background-color: var(--color-error-hover);
+			border-color: var(--color-error-hover);
+		}
+	}
+
+	&.outlined {
+		color: var(--color-error);
+		border-color: var(--color-error);
+
+		&:hover {
+			background-color: var(--color-error);
+			color: var(--color-text-inverse);
+		}
+	}
+
+	&.text {
+		color: var(--color-error);
+
+		&:hover {
+			color: var(--color-error-hover);
+		}
+	}
+}
+
 // ── sizes ─────────────────────────────────────────────────────────────────────
 
 .small {

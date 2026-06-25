@@ -7,6 +7,7 @@ import styles from "./Button.module.scss";
 
 export interface ButtonProps extends ButtonPrimitive.Props {
 	variant?: "contained" | "outlined" | "text";
+	color?: "primary" | "accent" | "error";
 	size?: "small" | "medium" | "large";
 	fullWidth?: boolean;
 	icon?: ReactNode;
@@ -15,6 +16,7 @@ export interface ButtonProps extends ButtonPrimitive.Props {
 
 export const Button = ({
 	variant = "contained",
+	color = "primary",
 	size = "medium",
 	fullWidth,
 	icon,
@@ -28,6 +30,7 @@ export const Button = ({
 			styles.button,
 			styles[variant],
 			styles[size],
+			styles[`color-${color}`],
 			{ [styles.fullWidth]: fullWidth },
 			className
 		)}

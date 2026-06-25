@@ -1,9 +1,10 @@
 "use client";
 
 import { Button } from "@/components/atoms/Button";
-import { RecipeCard } from "@/components/molecules/RecipeCard";
+import { Link } from "@/i18n/routing";
 import type { MealDetail } from "@/types/meal";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import {
 	HiOutlineHeart,
 	HiOutlineXCircle,
@@ -31,57 +32,81 @@ export const RecipeRecommendation = ({
 	onDislike,
 	onNext,
 	onChangeSearch,
-	onRetry,
 }: RecipeRecommendationProps) => {
 	const t = useTranslations("recommendation");
 
 	if (loading) {
-		return <p className={`${styles.loading} text--p-md`}>{t("loading")}</p>;
+		return (
+			<div className={styles.stateContainer}>
+				<HiOutlineRefresh className={styles.spinner} />
+				<p className="text--p-md">{t("loading")}</p>
+			</div>
+		);
 	}
 
 	if (error || !meal) {
 		return (
-			<div className={styles.empty}>
-				<h2 className={`${styles.title} text--h-sm`}>{t("noRecipeTitle")}</h2>
-				<p className={`${styles.subtitle} text--p-md`}>{t("noRecipeSubtitle")}</p>
-				<div className={styles.actions}>
-					<Button fullWidth onClick={onRetry}>
-						{t("retry")}
-					</Button>
-					<Button
-						fullWidth
-						variant="outlined"
-						icon={<HiOutlineArrowLeft />}
-						onClick={onChangeSearch}
-					>
-						{t("changeSearch")}
-					</Button>
-				</div>
+			<div className={styles.stateContainer}>
+				<p className="text--p-lg text--strong">{t("noRecipeTitle")}</p>
+				<p className="text--p-md">{t("noRecipeSubtitle")}</p>
+				<Button fullWidth icon={<HiOutlineArrowLeft />} onClick={onChangeSearch}>
+					{t("resetSearch")}
+				</Button>
 			</div>
 		);
 	}
 
 	return (
 		<div className={styles.result}>
-			<RecipeCard meal={meal} />
+			<div className={styles.imageWrapper}>
+				<Image
+					src={meal.strMealThumb}
+					alt={meal.strMeal}
+					fill
+					className={styles.image}
+					sizes="(max-width: 768px) 100vw, 480px"
+				/>
+				<Button
+					className={styles.refreshBtn}
+					color="accent"
+					icon={<HiOutlineRefresh />}
+					onClick={onNext}
+					aria-label={t("newIdea")}
+				/>
+			</div>
 
-			<p className={styles.question}>{t("question")}</p>
+			<div className={styles.info}>
+				<Link href={`/recipe?id=${meal.idMeal}`} className={styles.titleLink}>
+					<h2 className={`${styles.title} text--h-xs text--strong`}>{meal.strMeal}</h2>
+				</Link>
+				{(meal.strArea || meal.strCategory) && (
+					<div className={styles.chips}>
+						{meal.strArea && <span className={`${styles.chip} text--p-sm`}>{meal.strArea}</span>}
+						{meal.strCategory && <span className={`${styles.chip} text--p-sm`}>{meal.strCategory}</span>}
+					</div>
+				)}
+			</div>
+
+			<p className={`${styles.question} text--p-lg`}>{t("question")}</p>
 
 			<div className={styles.feedback}>
+				<Button
+					fullWidth
+					variant="outlined"
+					color="error"
+					icon={<HiOutlineXCircle />}
+					onClick={onDislike}
+				>
+					{t("no")}
+				</Button>
 				<Button fullWidth icon={<HiOutlineHeart />} onClick={onLike}>
 					{t("yes")}
-				</Button>
-				<Button fullWidth variant="outlined" icon={<HiOutlineXCircle />} onClick={onDislike}>
-					{t("no")}
 				</Button>
 			</div>
 
 			<div className={styles.secondaryActions}>
-				<Button variant="text" icon={<HiOutlineRefresh />} onClick={onNext}>
-					{t("newIdea")}
-				</Button>
-				<Button variant="text" icon={<HiOutlineArrowLeft />} onClick={onChangeSearch}>
-					{t("changeSearch")}
+				<Button fullWidth icon={<HiOutlineArrowLeft />} onClick={onChangeSearch}>
+					{t("resetSearch")}
 				</Button>
 			</div>
 		</div>
