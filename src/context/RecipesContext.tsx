@@ -20,7 +20,7 @@ const RecipesContext = createContext<RecipesContextValue | null>(null);
 export function RecipesProvider({ children }: { children: React.ReactNode }) {
 	const [history, setHistory] = useState<HistoryEntry[]>([]);
 	const [currentSearch, setCurrentSearchState] = useState<SearchState | null>(null);
-	const hydrated = useRef(false);
+	const skipPersist = useRef(true);
 
 	// Load from localStorage once on mount (client only)
 	useEffect(() => {
@@ -34,13 +34,14 @@ export function RecipesProvider({ children }: { children: React.ReactNode }) {
 		};
 
 		loadHistory();
-
-		hydrated.current = true;
 	}, []);
 
-	// Persist history to localStorage whenever it changes (after hydration)
+	// Persist history to localStorage whenever it changes (skip initial mount to avoid wiping data before load completes)
 	useEffect(() => {
-		if (!hydrated.current) return;
+		if (skipPersist.current) {
+			skipPersist.current = false;
+			return;
+		}
 		try {
 			localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
 		} catch {

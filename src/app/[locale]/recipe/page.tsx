@@ -72,7 +72,7 @@ export default async function RecipePage({
 			<Container>
 				<Row xsJustify={Justify.center}>
 					<Col xs={12} xl={10}>
-						<Link href="/" className={styles.backLink}>
+						<Link href="/my-recipes" className={styles.backLink}>
 							<LuChevronLeft size={14} />
 							{t("back")}
 						</Link>
@@ -98,8 +98,12 @@ export default async function RecipePage({
 
 										<div className={styles.meta}>
 											<div className={styles.tags}>
-												{meal.strArea && <Tag size="md">{meal.strArea}</Tag>}
-												{meal.strCategory && <Tag size="md">{meal.strCategory}</Tag>}
+												{meal.strArea && (
+													<Tag size="md">{meal.strArea}</Tag>
+												)}
+												{meal.strCategory && (
+													<Tag size="md">{meal.strCategory}</Tag>
+												)}
 											</div>
 
 											<div className={styles.actions}>

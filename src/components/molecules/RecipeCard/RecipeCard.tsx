@@ -1,11 +1,12 @@
 import { Card } from "@/components/molecules/Card";
 import { Background } from "@/components/atoms/Background";
+import { Button } from "@/components/atoms/Button";
 import { ExternalLink } from "@/components/atoms/ExternalLink";
 import { Tag } from "@/components/atoms/Tag";
 import { Link } from "@/i18n/routing";
 import classNames from "classnames";
 import Image from "next/image";
-import { LuExternalLink } from "react-icons/lu";
+import { LuExternalLink, LuArrowUpRight } from "react-icons/lu";
 import { HiHeart, HiOutlineHeart } from "react-icons/hi";
 import type { ReactNode } from "react";
 import type { MealDetail } from "@/types/meal";
@@ -50,9 +51,16 @@ export const RecipeCard = ({ meal, badge, onToggle, actions, className }: Recipe
 				)}
 			</div>
 
-			<Link href={`/recipe?id=${meal.idMeal}`} className={styles.titleLink}>
+			<div className={styles.titleRow}>
 				<h3 className="text--h-xs text--strong">{meal.strMeal}</h3>
-			</Link>
+				<Button
+					variant="outlined"
+					size="small"
+					icon={<LuArrowUpRight aria-hidden />}
+					render={<Link href={`/recipe?id=${meal.idMeal}`} />}
+					aria-label={`View ${meal.strMeal}`}
+				/>
+			</div>
 
 			<div className={styles.meta}>
 				{meal.strArea && <Tag>{meal.strArea}</Tag>}

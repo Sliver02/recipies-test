@@ -63,12 +63,9 @@
 }
 
 
-.titleLink {
-	color: inherit;
-	text-decoration: none;
-
-	&:hover {
-		text-decoration: underline;
-		color: var(--color-primary);
-	}
+.titleRow {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 0.5rem;
 }
