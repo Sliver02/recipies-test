@@ -4,9 +4,6 @@
 		"myRecipes": "Le mie ricette",
 		"contact": "Contatti"
 	},
-	"footer": {
-		"copyright": "Tutti i diritti riservati"
-	},
 	"contact": {
 		"title": "Contatti",
 		"description": "Scrivici — compila il modulo qui sotto.",
@@ -67,7 +64,8 @@
 		"noRecipeSubtitle": "Nessuna ricetta corrisponde alla ricerca",
 		"retry": "Riprova?",
 		"loading": "Ricerca in corso…",
-		"changeSearch": "Cambia ricerca"
+		"changeSearch": "Cambia ricerca",
+		"resetSearch": "Reimposta ricerca"
 	},
 	"recipeDetail": {
 		"ingredients": "Ingredienti",

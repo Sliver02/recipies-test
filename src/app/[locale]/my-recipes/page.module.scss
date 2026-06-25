@@ -1,0 +1,43 @@
+@use "../../../designSystem/variables";
+@use "../../../designSystem/utils";
+@use "../../../designSystem/mediaQueries" as mq;
+
+.pageTitle {
+	padding: 2rem 0 1.5rem;
+}
+
+.filters {
+	display: flex;
+	gap: 0.5rem;
+	align-items: flex-start;
+	padding-top: 1.75rem;
+
+	@include mq.media("md") {
+		justify-content: flex-end;
+	}
+}
+
+.section {
+	margin-top: 2.5rem;
+}
+
+.sectionTitle {
+	margin-bottom: 1.25rem;
+	padding-bottom: 0.5rem;
+	border-bottom: 2px solid var(--color-border);
+
+	&.liked {
+		color: var(--color-success);
+		border-color: var(--color-success);
+	}
+
+	&.disliked {
+		color: var(--color-error);
+		border-color: var(--color-error);
+	}
+}
+
+.empty {
+	color: var(--color-text-secondary);
+	padding: 1rem 0 2rem;
+}

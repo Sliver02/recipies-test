@@ -1,5 +1,4 @@
 import { Link } from "@/i18n/routing";
-import { useTranslations } from "next-intl";
 import styles from "./Footer.module.scss";
 
 export interface FooterNavItem {
@@ -13,9 +12,6 @@ export interface FooterProps {
 }
 
 export const Footer = ({ navItems, className }: FooterProps) => {
-	const t = useTranslations("footer");
-	const year = new Date().getFullYear();
-
 	return (
 		<footer className={className}>
 			<div className={styles.inner}>
@@ -28,9 +24,6 @@ export const Footer = ({ navItems, className }: FooterProps) => {
 						))}
 					</nav>
 				)}
-				<p className={styles.copyright}>
-					© {year} — {t("copyright")}
-				</p>
 			</div>
 		</footer>
 	);

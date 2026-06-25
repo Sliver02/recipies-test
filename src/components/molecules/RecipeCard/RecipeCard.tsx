@@ -4,6 +4,7 @@ import { Link } from "@/i18n/routing";
 import classNames from "classnames";
 import Image from "next/image";
 import { LuExternalLink } from "react-icons/lu";
+import { HiHeart, HiOutlineHeart } from "react-icons/hi";
 import type { ReactNode } from "react";
 import type { MealDetail } from "@/types/meal";
 import styles from "./RecipeCard.module.scss";
@@ -11,11 +12,12 @@ import styles from "./RecipeCard.module.scss";
 export interface RecipeCardProps {
 	meal: MealDetail;
 	badge?: "liked" | "disliked";
+	onToggle?: () => void;
 	actions?: ReactNode;
 	className?: string;
 }
 
-export const RecipeCard = ({ meal, badge, actions, className }: RecipeCardProps) => (
+export const RecipeCard = ({ meal, badge, onToggle, actions, className }: RecipeCardProps) => (
 	<Card className={className} title={undefined} rightMenu={actions}>
 		<div className={styles.wrapper}>
 			<div className={styles.imageWrapper}>
@@ -30,6 +32,20 @@ export const RecipeCard = ({ meal, badge, actions, className }: RecipeCardProps)
 				) : (
 					<Background />
 				)}
+				{badge && (
+					<button
+						className={classNames(styles.heartIcon, styles[badge], {
+							[styles.interactive]: !!onToggle,
+						})}
+						onClick={(e) => {
+							e.preventDefault();
+							onToggle?.();
+						}}
+						aria-label={badge === "liked" ? "Mark as disliked" : "Mark as liked"}
+					>
+						{badge === "liked" ? <HiHeart /> : <HiOutlineHeart />}
+					</button>
+				)}
 			</div>
 
 			<Link href={`/recipe?id=${meal.idMeal}`} className={styles.titleLink}>
@@ -39,11 +55,6 @@ export const RecipeCard = ({ meal, badge, actions, className }: RecipeCardProps)
 			<div className={styles.meta}>
 				{meal.strArea && <span className={styles.tag}>{meal.strArea}</span>}
 				{meal.strCategory && <span className={styles.tag}>{meal.strCategory}</span>}
-				{badge && (
-					<span className={classNames(styles.badge, styles[badge])}>
-						{badge === "liked" ? "Liked" : "Disliked"}
-					</span>
-				)}
 			</div>
 
 			{meal.strSource && (

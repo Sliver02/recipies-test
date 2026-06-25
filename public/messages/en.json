@@ -4,9 +4,6 @@
 		"contact": "Contact",
 		"myRecipes": "My Recipes"
 	},
-	"footer": {
-		"copyright": "All rights reserved"
-	},
 	"contact": {
 		"title": "Contact",
 		"description": "Get in touch — fill in the form below.",
@@ -68,7 +65,8 @@
 		"noRecipeSubtitle": "No recipe corresponded to the search",
 		"retry": "Retry?",
 		"loading": "Finding a recipe…",
-		"changeSearch": "Change search"
+		"changeSearch": "Change search",
+		"resetSearch": "Reset search"
 	},
 	"recipeDetail": {
 		"ingredients": "Ingredients",
